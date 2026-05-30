@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 18th Birthday, Lahari Reddy Garu 🌷</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --pink:#f9a8c9;
+  --pink-deep:#e8678a;
+  --pink-light:#fce4ec;
+  --pink-glow:#ff80ab;
+  --gold:#d4af7a;
+  --cream:#fff8f0;
+  --dark:#0a0406;
+  --dark2:#140a0d;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--dark);
+  color:#fff;
+  font-family:'Cormorant Garamond',serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+#cursor{
+  position:fixed;width:16px;height:16px;
+  background:var(--pink-glow);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s;
+  mix-blend-mode:screen;
+  box-shadow:0 0 20px var(--pink-glow),0 0 40px var(--pink);
+}
+#cursor-trail{
+  position:fixed;width:40px;height:40px;
+  border:1px solid var(--pink);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:all 0.15s ease;
+  opacity:0.5;
+}
+
+/* CANVAS BACKGROUND */
+#bg-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+
+/* PETAL CANVAS */
+#petal-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:1;pointer-events:none;
+}
+
+/* SECTIONS */
+section{
+  position:relative;
+  z-index:10;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:60px 20px;
+}
+
+/* ===== OPENING ===== */
+#opening{
+  background:transparent;
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  z-index:1000;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#opening-overlay{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:var(--dark);
+  z-index:1;
+}
+.opening-content{
+  position:relative;z-index:2;
+  text-align:center;
+  display:flex;flex-direction:column;
+  align-items:center;gap:0;
+}
+#tulip-svg{
+  opacity:0;
+  margin-bottom:30px;
+  filter:drop-shadow(0 0 30px var(--pink)) drop-shadow(0 0 60px var(--pink-deep));
+  transform:scale(0.5) translateY(40px);
+}
+.open-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,3vw,1.4rem);
+  color:var(--pink-light);
+  letter-spacing:0.3em;
+  opacity:0;
+  margin:8px 0;
+  font-weight:300;
+  text-transform:uppercase;
+}
+.open-text.big{
+  font-size:clamp(1.4rem,4vw,2rem);
+  color:var(--pink);
+  font-style:italic;
+  letter-spacing:0.1em;
+  text-transform:none;
+  font-weight:400;
+}
+.open-text.subtitle{
+  font-size:clamp(1rem,2.5vw,1.2rem);
+  color:var(--gold);
+  letter-spacing:0.25em;
+}
+.open-text.dedication{
+  font-size:clamp(1.2rem,3.5vw,1.7rem);
+  color:#fff;
+  font-style:italic;
+  margin-top:20px;
+}
+#begin-btn{
+  opacity:0;
+  margin-top:40px;
+  padding:16px 50px;
+  background:transparent;
+  border:1px solid var(--pink);
+  color:var(--pink);
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  letter-spacing:0.3em;
+  cursor:none;
+  transition:all 0.4s ease;
+  text-transform:uppercase;
+  position:relative;
+  overflow:hidden;
+}
+#begin-btn::before{
+  content:'';
+  position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(249,168,201,0.2),transparent);
+  transition:left 0.5s ease;
+}
+#begin-btn:hover::before{left:100%;}
+#begin-btn:hover{
+  background:rgba(249,168,201,0.1);
+  box-shadow:0 0 30px var(--pink),0 0 60px rgba(249,168,201,0.3);
+  transform:scale(1.03);
+}
+
+/* ===== MAIN STORY ===== */
+#main-story{
+  display:none;
+  z-index:10;
+}
+
+/* CHAPTER STYLES */
+.chapter{
+  min-height:100vh;
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  padding:80px 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+.chapter-number{
+  font-family:'Lato',sans-serif;
+  font-size:0.75rem;
+  letter-spacing:0.5em;
+  color:var(--pink-deep);
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(20px);
+  margin-bottom:15px;
+}
+.chapter-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,6vw,3.5rem);
+  color:var(--pink);
+  font-style:italic;
+  opacity:0;
+  transform:translateY(30px);
+  margin-bottom:40px;
+  line-height:1.2;
+  text-shadow:0 0 40px rgba(249,168,201,0.4);
+}
+.chapter-body{
+  font-size:clamp(1rem,2.5vw,1.25rem);
+  line-height:2;
+  color:rgba(255,255,255,0.85);
+  font-weight:300;
+  max-width:680px;
+  opacity:0;
+  transform:translateY(20px);
+}
+.chapter-body p{
+  margin-bottom:1.2em;
+}
+.chapter-ending{
+  margin-top:50px;
+  padding:30px 40px;
+  border-left:2px solid var(--pink-deep);
+  text-align:left;
+  background:rgba(249,168,201,0.04);
+  backdrop-filter:blur(10px);
+  border-radius:0 10px 10px 0;
+  opacity:0;
+  transform:translateX(-30px);
+  max-width:600px;
+  width:100%;
+}
+.chapter-ending p{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,2.2vw,1.2rem);
+  color:var(--pink-light);
+  font-style:italic;
+  line-height:1.9;
+  margin-bottom:0.5em;
+}
+
+/* DIVIDER */
+.chapter-divider{
+  width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--pink-deep),transparent);
+  margin:40px auto;
+  opacity:0;
+}
+
+/* GLASS CARD */
+.glass-card{
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(249,168,201,0.15);
+  border-radius:20px;
+  padding:40px;
+  margin:30px 0;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* CHAPTER 1 - REDDIT */
+.reddit-card{
+  background:rgba(20,10,13,0.8);
+  border:1px solid rgba(249,168,201,0.2);
+  border-radius:12px;
+  padding:25px 30px;
+  text-align:left;
+  max-width:580px;
+  width:100%;
+  font-family:'Lato',sans-serif;
+  opacity:0;
+  transform:translateY(30px);
+}
+.reddit-sub{
+  font-size:0.75rem;
+  color:var(--pink-deep);
+  letter-spacing:0.15em;
+  margin-bottom:8px;
+}
+.reddit-title{
+  font-size:1rem;
+  color:#fff;
+  margin-bottom:12px;
+  font-weight:400;
+  line-height:1.5;
+}
+.reddit-comment{
+  background:rgba(249,168,201,0.06);
+  border-left:3px solid var(--pink-deep);
+  padding:12px 16px;
+  margin-top:14px;
+  border-radius:0 8px 8px 0;
+}
+.reddit-comment-user{
+  font-size:0.7rem;
+  color:var(--pink);
+  margin-bottom:6px;
+}
+.reddit-comment-text{
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.8);
+  line-height:1.6;
+}
+.tulip-grow{
+  text-align:center;
+  font-size:4rem;
+  opacity:0;
+  transform:scale(0) translateY(20px);
+  display:inline-block;
+  filter:drop-shadow(0 0 20px var(--pink));
+}
+
+/* CHAPTER 2 - CHOSE ME */
+.heart-reveal{
+  font-size:clamp(4rem,12vw,8rem);
+  opacity:0;
+  transform:scale(0);
+  display:block;
+  filter:drop-shadow(0 0 30px #ff4081);
+  margin:20px 0;
+}
+.tulip-row{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin:20px 0;
+  opacity:0;
+}
+.tulip-row span{font-size:2.5rem;filter:drop-shadow(0 0 15px var(--pink));animation:sway 3s ease-in-out infinite alternate;}
+.tulip-row span:nth-child(2){animation-delay:0.3s;}
+.tulip-row span:nth-child(3){animation-delay:0.6s;}
+.tulip-row span:nth-child(4){animation-delay:0.9s;}
+.tulip-row span:nth-child(5){animation-delay:1.2s;}
+@keyframes sway{from{transform:rotate(-5deg);}to{transform:rotate(5deg);}}
+
+/* CHAPTER 3 - WAIT */
+.calendar-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  gap:6px;max-width:360px;width:100%;
+  margin:20px auto;opacity:0;transform:scale(0.8);
+}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.04);border-radius:8px;
+  font-size:0.75rem;color:rgba(255,255,255,0.5);
+  font-family:'Lato',sans-serif;
+  border:1px solid transparent;
+  transition:all 0.3s;
+}
+.cal-day.highlight{
+  background:rgba(249,168,201,0.15);
+  border-color:var(--pink-deep);
+  color:var(--pink);
+}
+.cal-day.special{
+  background:var(--pink-deep);
+  color:#fff;
+  font-weight:700;
+  box-shadow:0 0 20px var(--pink-deep);
+}
+
+/* CHAPTER 4 - JAN 5 */
+.date-big{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,10vw,7rem);
+  color:transparent;
+  -webkit-text-stroke:1px var(--pink);
+  opacity:0;
+  transform:scale(0.7);
+  letter-spacing:0.05em;
+  line-height:1;
+  margin:20px 0;
+  text-shadow:none;
+  filter:drop-shadow(0 0 40px var(--pink-deep));
+}
+.pathway{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  margin:20px 0;opacity:0;
+}
+.pathway span{font-size:2rem;animation:float-up 2s ease-in-out infinite alternate;}
+.pathway span:nth-child(even){animation-delay:0.5s;}
+@keyframes float-up{from{transform:translateY(0);}to{transform:translateY(-10px);}}
+
+/* CHAPTER 5 - DARK NIGHT */
+.dark-chapter{
+  background:radial-gradient(ellipse at center,rgba(20,5,10,0.95) 0%,rgba(5,0,3,0.99) 100%);
+}
+.chapter-5-overlay{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:radial-gradient(ellipse at center,rgba(139,0,50,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cracked-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,5vw,3rem);
+  color:rgba(249,168,201,0.5);
+  font-style:italic;
+  text-shadow:2px 2px 0 rgba(139,0,50,0.5),-1px -1px 0 rgba(0,0,0,0.8);
+  opacity:0;
+  transform:translateY(20px);
+  margin:20px 0;
+}
+.rcb-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#cc0000,#8b0000);
+  color:#fff;
+  padding:8px 20px;
+  border-radius:30px;
+  font-family:'Lato',sans-serif;
+  font-size:0.85rem;
+  letter-spacing:0.15em;
+  margin:15px 0;
+  opacity:0;
+  box-shadow:0 0 20px rgba(204,0,0,0.4);
+}
+
+/* CHAPTER 6 - STAYED */
+.sunrise-glow{
+  position:absolute;bottom:0;left:0;width:100%;height:50%;
+  background:radial-gradient(ellipse at 50% 100%,rgba(249,168,201,0.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.late-night-card{
+  max-width:560px;width:100%;
+  margin:30px auto;
+}
+.time-stamp{
+  font-family:'Lato',sans-serif;
+  font-size:0.7rem;
+  color:var(--pink-deep);
+  letter-spacing:0.3em;
+  margin-bottom:8px;
+}
+.message-bubble{
+  background:rgba(249,168,201,0.1);
+  border:1px solid rgba(249,168,201,0.2);
+  border-radius:20px 20px 20px 5px;
+  padding:15px 20px;
+  font-size:1rem;
+  color:rgba(255,255,255,0.9);
+  text-align:left;
+  line-height:1.6;
+  margin-bottom:8px;
+  opacity:0;
+  transform:translateX(-20px);
+}
+.message-bubble.reply{
+  border-radius:20px 20px 5px 20px;
+  background:rgba(232,103,138,0.12);
+  transform:translateX(20px);
+  text-align:right;
+}
+.message-bubble .heart-time{
+  font-size:0.75rem;color:var(--pink-deep);margin-top:4px;
+}
+
+/* CHAPTER 7 - CHOCOLATES */
+.chocolate-grid{
+  display:flex;flex-wrap:wrap;gap:20px;
+  justify-content:center;max-width:700px;
+  margin:30px auto;
+}
+.choco-card{
+  width:calc(50% - 10px);
+  max-width:240px;
+  background:rgba(139,69,19,0.15);
+  border:1px solid rgba(210,150,80,0.3);
+  border-radius:16px;
+  padding:25px 20px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(30px) rotate(-3deg);
+  backdrop-filter:blur(10px);
+  transition:all 0.3s ease;
+}
+.choco-card:hover{transform:translateY(-5px) rotate(0deg) scale(1.03);box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 30px rgba(210,150,80,0.2);}
+.choco-icon{font-size:2.5rem;display:block;margin-bottom:12px;filter:drop-shadow(0 0 10px rgba(210,150,80,0.6));}
+.choco-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  color:var(--gold);
+  font-style:italic;
+  line-height:1.5;
+}
+.choco-card.fifth{width:calc(100% - 10px);max-width:300px;}
+
+/* FINAL CHAPTER */
+#final-chapter{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+  background:var(--dark);
+  padding:60px 20px 40px;
+}
+#three-canvas{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  z-index:1;pointer-events:none;
+}
+.final-content{
+  position:relative;z-index:5;
+  text-align:center;
+  max-width:800px;
+  margin:0 auto;
+}
+.bouquet-forming{
+  font-size:clamp(3rem,8vw,6rem);
+  margin:20px 0;
+  opacity:0;
+  display:block;
+  filter:drop-shadow(0 0 30px var(--pink)) drop-shadow(0 0 60px var(--pink-deep));
+  animation:pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow{
+  0%,100%{filter:drop-shadow(0 0 30px var(--pink)) drop-shadow(0 0 60px var(--pink-deep));}
+  50%{filter:drop-shadow(0 0 50px var(--pink)) drop-shadow(0 0 100px var(--pink-deep));}
+}
+.final-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,7vw,4.5rem);
+  color:var(--pink);
+  font-style:italic;
+  opacity:0;
+  transform:translateY(40px);
+  text-shadow:0 0 60px rgba(249,168,201,0.5);
+  margin:20px 0;
+  line-height:1.2;
+}
+.final-message{
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  color:rgba(255,255,255,0.9);
+  line-height:2.1;
+  font-weight:300;
+  opacity:0;
+  transform:translateY(20px);
+  margin:20px auto;
+  max-width:620px;
+}
+.final-message p{margin-bottom:1em;}
+.final-signature{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.2rem,3vw,1.8rem);
+  color:var(--pink);
+  font-style:italic;
+  margin-top:40px;
+  opacity:0;
+  transform:translateY(20px);
+}
+
+/* ENDING */
+#ending{
+  min-height:100vh;
+  background:var(--dark);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:60px 20px;
+  position:relative;
+}
+.ending-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,4vw,2.5rem);
+  font-style:italic;
+  color:var(--pink-light);
+  opacity:0;
+  transform:translateY(30px);
+  margin:15px 0;
+  line-height:1.5;
+}
+.ending-heart{
+  font-size:4rem;
+  opacity:0;
+  transform:scale(0);
+  display:block;
+  margin:20px 0;
+  filter:drop-shadow(0 0 30px #ff4081);
+  animation:heartbeat 1.5s ease-in-out infinite;
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+}
+.forgive-note{
+  margin-top:50px;
+  padding:25px 35px;
+  border:1px solid rgba(249,168,201,0.2);
+  border-radius:20px;
+  background:rgba(249,168,201,0.04);
+  backdrop-filter:blur(15px);
+  max-width:520px;
+  opacity:0;
+  transform:translateY(20px);
+}
+.forgive-note p{
+  font-size:clamp(0.95rem,2vw,1.1rem);
+  color:rgba(255,255,255,0.75);
+  line-height:1.9;
+  font-style:italic;
+}
+.forgive-note .note-heart{color:var(--pink);font-size:1.2rem;}
+
+/* FIREFLY */
+.firefly{
+  position:fixed;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:rgba(255,220,180,0.9);
+  pointer-events:none;
+  z-index:2;
+  box-shadow:0 0 6px 2px rgba(255,220,180,0.6);
+}
+
+/* SCROLL INDICATOR */
+.scroll-hint{
+  position:absolute;bottom:30px;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;
+  gap:8px;
+  opacity:0;
+  animation:fade-hint 3s ease-in-out 2s forwards;
+}
+@keyframes fade-hint{
+  0%{opacity:0;}40%{opacity:1;}80%{opacity:1;}100%{opacity:0;}
+}
+.scroll-hint span{
+  font-family:'Lato',sans-serif;
+  font-size:0.65rem;
+  letter-spacing:0.3em;
+  color:var(--pink-deep);
+  text-transform:uppercase;
+}
+.scroll-arrow{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--pink-deep),transparent);
+  animation:scroll-down 1.5s ease-in-out infinite;
+}
+@keyframes scroll-down{
+  0%{transform:translateY(-5px);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(5px);opacity:0;}
+}
+
+/* CHAPTER SEPARATOR */
+.chapter-sep{
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--pink-deep),transparent);
+  margin:0 auto;
+  opacity:0.3;
+  position:relative;
+}
+.chapter-sep::before{
+  content:'🌷';
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  font-size:1.2rem;
+  filter:drop-shadow(0 0 10px var(--pink));
+}
+
+/* PROGRESS BAR */
+#progress-bar{
+  position:fixed;top:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--pink-deep),var(--pink),var(--gold));
+  z-index:9999;width:0%;
+  box-shadow:0 0 10px var(--pink);
+  transition:width 0.1s;
+}
+
+/* FLOATING TULIP DECORATIONS */
+.float-tulip{
+  position:absolute;
+  font-size:1.5rem;
+  pointer-events:none;
+  animation:float-tulip 6s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px var(--pink));
+  opacity:0.3;
+}
+@keyframes float-tulip{
+  0%,100%{transform:translateY(0) rotate(-10deg);}
+  50%{transform:translateY(-20px) rotate(10deg);}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .choco-card{width:calc(50% - 8px);}
+  .chapter-ending{padding:20px 20px;}
+  .glass-card{padding:25px 20px;}
+  .reddit-card{padding:18px 20px;}
+  .chocolate-grid{gap:12px;}
+  .calendar-grid{max-width:280px;gap:4px;}
+  .cal-day{font-size:0.65rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<div id="progress-bar"></div>
+<canvas id="bg-canvas"></canvas>
+<canvas id="petal-canvas"></canvas>
+
+<!-- ===== OPENING ===== -->
+<div id="opening">
+  <div id="opening-overlay"></div>
+  <div class="opening-content">
+    <svg id="tulip-svg" width="100" height="160" viewBox="0 0 100 160">
+      <defs>
+        <radialGradient id="tg1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f9a8c9"/>
+          <stop offset="100%" stop-color="#e8678a"/>
+        </radialGradient>
+        <radialGradient id="tg2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fce4ec"/>
+          <stop offset="100%" stop-color="#f48fb1"/>
+        </radialGradient>
+      </defs>
+      <!-- Stem -->
+      <line x1="50" y1="160" x2="50" y2="85" stroke="#5d8a52" stroke-width="3" stroke-linecap="round"/>
+      <!-- Leaf -->
+      <path d="M50 120 Q30 100 35 85 Q45 105 50 120Z" fill="#6aab5e" opacity="0.8"/>
+      <path d="M50 110 Q70 92 65 78 Q55 98 50 110Z" fill="#5d8a52" opacity="0.7"/>
+      <!-- Petals back -->
+      <ellipse cx="50" cy="72" rx="12" ry="30" fill="url(#tg1)" transform="rotate(-20 50 72)" opacity="0.7"/>
+      <ellipse cx="50" cy="72" rx="12" ry="30" fill="url(#tg1)" transform="rotate(20 50 72)" opacity="0.7"/>
+      <!-- Petals front -->
+      <ellipse cx="50" cy="68" rx="11" ry="28" fill="url(#tg2)" transform="rotate(-35 50 68)" opacity="0.9"/>
+      <ellipse cx="50" cy="68" rx="11" ry="28" fill="url(#tg2)" transform="rotate(35 50 68)" opacity="0.9"/>
+      <ellipse cx="50" cy="65" rx="10" ry="26" fill="url(#tg2)"/>
+    </svg>
+    <div class="open-text" id="ot1">For Lahari Reddy Garu</div>
+    <div class="open-text subtitle" id="ot2">On Your 18th Birthday</div>
+    <div class="open-text big" id="ot3">A Story Written In Pink Tulips 🌷</div>
+    <div class="open-text dedication" id="ot4">To My Wife, Lahari Reddy Garu 💗</div>
+    <button id="begin-btn" onclick="beginJourney()">Begin Our Journey</button>
+  </div>
+</div>
+
+<!-- ===== MAIN STORY ===== -->
+<div id="main-story">
+
+  <!-- CHAPTER 1 -->
+  <section class="chapter" id="ch1">
+    <div class="chapter-number anim-el">Chapter One</div>
+    <div class="chapter-title anim-el">A Random Comment</div>
+    <div class="chapter-body anim-el">
+      <p>It was May 12.</p>
+      <p>You opened Reddit and typed out a question that felt so ordinary — asking about EAMCET colleges, your rank around 17,000, wondering about CMR.</p>
+      <p>Among all the noise of the internet, you posted your worry into the void. And somewhere on the other side of a screen... I saw it.</p>
+    </div>
+    <div class="reddit-card anim-el" id="reddit-card">
+      <div class="reddit-sub">r/TelanganaBtech</div>
+      <div class="reddit-title">Need advice on college with rank 17k — is CMR a good option? 😔</div>
+      <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);font-family:'Lato',sans-serif;">Posted by u/lahari_reddy • May 12</div>
+      <div class="reddit-comment">
+        <div class="reddit-comment-user">💬 A comment from a stranger...</div>
+        <div class="reddit-comment-text">Hey, I think CMR is actually a solid choice for your rank. Here's what I know about it... 🌷</div>
+      </div>
+    </div>
+    <div class="chapter-body anim-el" style="margin-top:20px;">
+      <p>Just a comment. Just a few words.</p>
+      <p>I had no idea that reply would be the beginning of everything.</p>
+    </div>
+    <div style="text-align:center;margin:20px 0;" class="anim-el">
+      <span class="tulip-grow" id="tulip-grow-1">🌷</span>
+    </div>
+    <div class="chapter-ending anim-el">
+      <p>"You were looking for a college."</p>
+      <p>"I was just leaving a comment."</p>
+      <p>"Neither of us knew we were about to become a part of each other's lives."</p>
+    </div>
+    <div class="scroll-hint"><div class="scroll-arrow"></div><span>Scroll</span></div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- CHAPTER 2 -->
+  <section class="chapter" id="ch2">
+    <div class="chapter-number anim-el">Chapter Two</div>
+    <div class="chapter-title anim-el">The Day You Chose Me</div>
+    <div class="chapter-body anim-el">
+      <p>There are 8 billion people on this planet.</p>
+      <p>You could have chosen anyone.</p>
+      <p>And yet... you looked across all that noise, all that distance, all that uncertainty...</p>
+    </div>
+    <span class="heart-reveal anim-el" id="heart-reveal">💗</span>
+    <div class="chapter-body anim-el">
+      <p>You confessed your feelings first. <em>You</em> took that leap.</p>
+      <p>And in that single moment, everything changed. The world became a different place — because you were in it, choosing me.</p>
+    </div>
+    <div class="tulip-row anim-el">
+      <span>🌷</span><span>🌷</span><span>🌷</span><span>🌷</span><span>🌷</span>
+    </div>
+    <div class="chapter-ending anim-el">
+      <p>"Out of everyone you could have chosen..."</p>
+      <p>"You chose me."</p>
+      <p>"And I will always be grateful for that."</p>
+    </div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- CHAPTER 3 -->
+  <section class="chapter" id="ch3">
+    <div class="chapter-number anim-el">Chapter Three</div>
+    <div class="chapter-title anim-el">The Wait</div>
+    <div class="chapter-body anim-el">
+      <p>They say the most beautiful things in life are worth waiting for.</p>
+      <p>We spent months just talking. Month after month of messages, of late-night calls, of counting down to a day that felt both far away and impossibly close.</p>
+      <p>Every day that passed was one day closer to you.</p>
+    </div>
+    <div class="calendar-grid anim-el" id="calendar-grid"></div>
+    <div class="chapter-body anim-el" style="margin-top:20px;">
+      <p>I would wait a thousand more months if it meant ending up here.</p>
+    </div>
+    <div class="chapter-ending anim-el">
+      <p>"Some people wait for years for something beautiful."</p>
+      <p>"We only had to wait for each other."</p>
+    </div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- CHAPTER 4 -->
+  <section class="chapter" id="ch4">
+    <div class="chapter-number anim-el">Chapter Four</div>
+    <div class="chapter-title anim-el">The Day I Finally Saw You</div>
+    <div class="date-big anim-el">January 5</div>
+    <div class="date-big anim-el" style="font-size:clamp(2rem,7vw,5rem);color:var(--pink);-webkit-text-stroke:0;">2026</div>
+    <div class="chapter-body anim-el">
+      <p>After months of waiting — after every call, every message, every imagined moment — that day finally arrived.</p>
+      <p>I got to see you. Not through a screen. Not through photos. <em>You.</em></p>
+      <p>Standing in front of me. Real. Present. More beautiful than anything I had imagined.</p>
+    </div>
+    <div class="pathway anim-el">
+      <span>🌷</span><span>🌷</span><span>🌷</span><span>✨</span><span>🌷</span><span>🌷</span><span>🌷</span>
+    </div>
+    <div class="chapter-ending anim-el">
+      <p>"Some moments become memories."</p>
+      <p>"This moment became part of my soul."</p>
+    </div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- CHAPTER 5 -->
+  <section class="chapter dark-chapter" id="ch5">
+    <div class="chapter-5-overlay"></div>
+    <div class="chapter-number anim-el" style="color:#c0556e;">Chapter Five</div>
+    <div class="chapter-title anim-el" style="color:#e88aa0;">The Night I Thought I Lost You</div>
+    <div class="rcb-badge anim-el">🏆 RCB won. After 18 years.</div>
+    <div class="chapter-body anim-el">
+      <p>The night should have been one of celebration. RCB had finally done it — 18 years of waiting rewarded.</p>
+      <p>But somewhere around 2 AM, life changed without warning.</p>
+      <p>And for the first time since I knew you, I felt the ground disappear beneath me. The thought of losing you — it wasn't something I was prepared for.</p>
+    </div>
+    <div class="cracked-text anim-el">"What if this was the end?"</div>
+    <div class="chapter-body anim-el">
+      <p>The celebration outside felt hollow.</p>
+      <p>All I could think about was you.</p>
+    </div>
+    <div class="chapter-ending anim-el" style="border-left-color:#c0556e;">
+      <p>"For the first time..."</p>
+      <p>"I was scared of losing you."</p>
+    </div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- CHAPTER 6 -->
+  <section class="chapter" id="ch6" style="position:relative;overflow:hidden;">
+    <div class="sunrise-glow"></div>
+    <div class="chapter-number anim-el">Chapter Six</div>
+    <div class="chapter-title anim-el">You Stayed</div>
+    <div class="chapter-body anim-el">
+      <p>When things became difficult, you stayed.</p>
+      <p>When life became complicated, you stayed.</p>
+      <p>When the easy choice would have been to simply walk away...</p>
+      <p style="color:var(--pink);font-size:1.3em;font-style:italic;font-family:'Playfair Display',serif;">You stayed.</p>
+    </div>
+    <div class="tulip-row anim-el" style="margin:30px 0;">
+      <span>🌷</span><span>🌷</span><span>🌷</span>
+    </div>
+    <div class="chapter-body anim-el" style="text-align:center;">
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--pink);">Late Night Love</p>
+    </div>
+    <div class="late-night-card anim-el glass-card">
+      <div class="time-stamp">1:47 AM</div>
+      <div class="message-bubble" id="msg1">
+        Hey... are you awake? I can't sleep 🌷
+        <div class="heart-time">Sent ✓✓</div>
+      </div>
+      <div class="message-bubble reply" id="msg2">
+        I'm here 💗 I'll always wake up for you
+        <div class="heart-time">2:01 AM</div>
+      </div>
+      <div class="message-bubble" id="msg3">
+        You shouldn't lose sleep for me...
+        <div class="heart-time">2:02 AM</div>
+      </div>
+      <div class="message-bubble reply" id="msg4">
+        Losing sleep for you is the best thing that's happened to me 🌙🌷
+        <div class="heart-time">2:03 AM</div>
+      </div>
+    </div>
+    <div class="chapter-ending anim-el">
+      <p>"Thank you for staying."</p>
+      <p>"Thank you for choosing us."</p>
+    </div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- CHAPTER 7 - CHOCOLATES -->
+  <section class="chapter" id="ch7">
+    <div class="chapter-number anim-el">Chapter Seven</div>
+    <div class="chapter-title anim-el">Five Sweet Memories</div>
+    <div class="chapter-body anim-el">
+      <p>You love Sneakers chocolates. So I thought — what better way to carry five feelings than wrapped in the sweetest thing you love?</p>
+    </div>
+    <div class="chocolate-grid">
+      <div class="choco-card anim-el" style="transform-origin:center;--delay:0s;">
+        <span class="choco-icon">🍫</span>
+        <div class="choco-label">One for your beautiful eyes — that see the world more kindly than it deserves</div>
+      </div>
+      <div class="choco-card anim-el" style="--delay:0.15s;">
+        <span class="choco-icon">🍫</span>
+        <div class="choco-label">One for your smile — that makes everything feel a little more okay</div>
+      </div>
+      <div class="choco-card anim-el" style="--delay:0.3s;">
+        <span class="choco-icon">🍫</span>
+        <div class="choco-label">One for your kindness — the rarest and most beautiful thing about you</div>
+      </div>
+      <div class="choco-card anim-el" style="--delay:0.45s;">
+        <span class="choco-icon">🍫</span>
+        <div class="choco-label">One for your courage — for confessing first, for staying, for being brave</div>
+      </div>
+      <div class="choco-card fifth anim-el" style="--delay:0.6s;">
+        <span class="choco-icon">🍫</span>
+        <div class="choco-label">One for the love you give me — endlessly, quietly, beautifully</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="chapter-sep"></div>
+
+  <!-- FINAL CHAPTER -->
+  <section id="final-chapter">
+    <canvas id="three-canvas"></canvas>
+    <div class="final-content">
+      <div class="chapter-number anim-el" style="font-size:0.8rem;letter-spacing:0.5em;color:var(--pink-deep);text-transform:uppercase;margin-bottom:15px;">Final Chapter</div>
+      <div class="chapter-title final-title anim-el">The Bouquet I Couldn't Give You</div>
+      <div class="final-message anim-el">
+        <p>I always imagined the moment I would place a bouquet of pink tulips in your hands.</p>
+        <p>I haven't been able to do that yet.</p>
+        <p>So instead...</p>
+        <p style="color:var(--pink);font-style:italic;font-size:1.1em;">I built an entire garden for you.</p>
+      </div>
+      <span class="bouquet-forming anim-el" id="bouquet-emoji">🌷🌷🌷<br>🌷🌷🌷🌷<br>🌷🌷🌷</span>
+      <div class="final-message anim-el">
+        <p>Every flower here carries a memory.</p>
+        <p>Every petal carries a feeling.</p>
+        <p>Every chapter carries a piece of my heart.</p>
+      </div>
+      <div class="chapter-ending anim-el" style="margin:30px auto;max-width:620px;border-left-color:var(--pink);background:rgba(249,168,201,0.05);">
+        <p style="font-size:1.2rem;font-weight:400;">Happy 18th Birthday, Lahari Reddy Garu 🌷💗</p>
+        <p style="margin-top:1em;">Thank you for choosing me.</p>
+        <p>Thank you for staying.</p>
+        <p>Thank you for loving me.</p>
+        <p style="margin-top:1em;">I hope one day I can give you the real bouquet I always wanted to.</p>
+        <p style="margin-top:1em;">Until then... I hope this garden reminds you how much you mean to me.</p>
+        <p style="margin-top:1.5em;font-size:1.1rem;color:var(--pink);">Love Always,</p>
+        <p style="font-size:1.2rem;color:var(--pink);font-weight:600;">Your Husband ❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENDING -->
+  <section id="ending">
+    <div class="ending-text anim-el">"This website ends here."</div>
+    <div class="ending-text anim-el">"My love for you doesn't."</div>
+    <span class="ending-heart anim-el">🌷❤️</span>
+    <div class="forgive-note anim-el">
+      <p>AI isn't perfect, and neither is your husband.</p>
+      <p style="margin-top:0.5em;">If you find any mistakes, please forgive both of us.</p>
+      <p style="margin-top:0.8em;" class="note-heart">🌷❤️</p>
+    </div>
+    <div style="margin-top:30px;opacity:0.3;font-size:0.7rem;letter-spacing:0.3em;color:var(--pink-deep);font-family:'Lato',sans-serif;text-transform:uppercase;" class="anim-el">Made with love, just for you</div>
+  </section>
+
+</div><!-- /main-story -->
+
+<script>
+// ===== CURSOR =====
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animCursor(){
+  tx+=(mx-tx)*0.12;ty+=(my-ty)*0.12;
+  trail.style.left=tx+'px';trail.style.top=ty+'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+// ===== PROGRESS BAR =====
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement.scrollTop;
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(s/h*100)+'%';
+});
+
+// ===== PETAL CANVAS =====
+const petalCanvas=document.getElementById('petal-canvas');
+const pctx=petalCanvas.getContext('2d');
+let petals=[];
+function resizePetal(){petalCanvas.width=window.innerWidth;petalCanvas.height=window.innerHeight;}
+resizePetal();
+window.addEventListener('resize',resizePetal);
+
+function createPetal(){
+  return{
+    x:Math.random()*petalCanvas.width,
+    y:-20,
+    size:Math.random()*14+6,
+    speedX:(Math.random()-0.5)*1.5,
+    speedY:Math.random()*1.2+0.4,
+    rotation:Math.random()*Math.PI*2,
+    rotSpeed:(Math.random()-0.5)*0.04,
+    alpha:Math.random()*0.6+0.2,
+    color:`hsl(${330+Math.random()*30},${70+Math.random()*20}%,${70+Math.random()*15}%)`
+  };
+}
+for(let i=0;i<60;i++){
+  let p=createPetal();p.y=Math.random()*window.innerHeight;
+  petals.push(p);
+}
+
+function drawPetal(p){
+  pctx.save();
+  pctx.translate(p.x,p.y);
+  pctx.rotate(p.rotation);
+  pctx.globalAlpha=p.alpha;
+  pctx.beginPath();
+  pctx.ellipse(0,0,p.size/2,p.size,0,0,Math.PI*2);
+  pctx.fillStyle=p.color;
+  pctx.fill();
+  pctx.restore();
+}
+
+function animPetals(){
+  pctx.clearRect(0,0,petalCanvas.width,petalCanvas.height);
+  petals.forEach((p,i)=>{
+    p.x+=p.speedX;p.y+=p.speedY;p.rotation+=p.rotSpeed;
+    drawPetal(p);
+    if(p.y>petalCanvas.height+30)petals[i]=createPetal();
+  });
+  requestAnimationFrame(animPetals);
+}
+animPetals();
+
+// ===== BG CANVAS STARS =====
+const bgCanvas=document.getElementById('bg-canvas');
+const bctx=bgCanvas.getContext('2d');
+let stars=[];
+function resizeBg(){bgCanvas.width=window.innerWidth;bgCanvas.height=window.innerHeight;}
+resizeBg();
+window.addEventListener('resize',resizeBg);
+for(let i=0;i<120;i++){
+  stars.push({x:Math.random()*bgCanvas.width,y:Math.random()*bgCanvas.height,r:Math.random()*1.5+0.3,a:Math.random(),s:Math.random()*0.02+0.005,dir:Math.random()>0.5?1:-1});
+}
+function animBg(){
+  bctx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  stars.forEach(s=>{
+    s.a+=s.s*s.dir;
+    if(s.a>1||s.a<0)s.dir*=-1;
+    bctx.beginPath();
+    bctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    bctx.fillStyle=`rgba(249,168,201,${s.a*0.4})`;
+    bctx.fill();
+  });
+  requestAnimationFrame(animBg);
+}
+animBg();
+
+// ===== FIREFLIES =====
+function createFirefly(){
+  const f=document.createElement('div');
+  f.className='firefly';
+  f.style.left=Math.random()*100+'vw';
+  f.style.top=Math.random()*100+'vh';
+  document.body.appendChild(f);
+  animFirefly(f);
+}
+function animFirefly(f){
+  const tx=Math.random()*100,ty=Math.random()*100,dur=3000+Math.random()*4000;
+  f.animate([
+    {left:f.style.left,top:f.style.top,opacity:0},
+    {opacity:0.8,offset:0.3},
+    {left:tx+'vw',top:ty+'vh',opacity:0}
+  ],{duration:dur,fill:'forwards'}).onfinish=()=>{
+    f.style.left=tx+'vw';f.style.top=ty+'vh';
+    animFirefly(f);
+  };
+}
+for(let i=0;i<18;i++)createFirefly();
+
+// ===== OPENING ANIMATION =====
+function runOpening(){
+  const tl=gsap.timeline();
+  tl.to('#tulip-svg',{opacity:1,scale:1,y:0,duration:2,ease:'power3.out'},1)
+    .to('#ot1',{opacity:1,y:0,duration:1,ease:'power2.out'},2.5)
+    .to('#ot2',{opacity:1,y:0,duration:1,ease:'power2.out'},3.8)
+    .to('#ot3',{opacity:1,y:0,duration:1.2,ease:'power2.out'},5.2)
+    .to('#ot4',{opacity:1,y:0,duration:1.2,ease:'power2.out'},7)
+    .to('#begin-btn',{opacity:1,duration:1,ease:'power2.out'},8.5);
+}
+window.addEventListener('load',runOpening);
+
+// ===== BEGIN JOURNEY =====
+function beginJourney(){
+  const tl=gsap.timeline();
+  tl.to('#opening',{opacity:0,duration:1.5,ease:'power2.inOut',onComplete:()=>{
+    document.getElementById('opening').style.display='none';
+    document.getElementById('main-story').style.display='block';
+    initScrollAnimations();
+    buildCalendar();
+  }});
+}
+
+// ===== CALENDAR =====
+function buildCalendar(){
+  const grid=document.getElementById('calendar-grid');
+  const days=['S','M','T','W','T','F','S'];
+  days.forEach(d=>{
+    const h=document.createElement('div');
+    h.className='cal-day';h.textContent=d;
+    h.style.color='rgba(249,168,201,0.4)';h.style.fontSize='0.6rem';
+    grid.appendChild(h);
+  });
+  const highlights=[3,7,14,21,22,28];
+  const special=[5];
+  for(let i=1;i<=35;i++){
+    const d=document.createElement('div');
+    d.className='cal-day';
+    if(i<=31)d.textContent=i;
+    if(highlights.includes(i))d.classList.add('highlight');
+    if(special.includes(i)){d.classList.add('special');d.innerHTML=i+'<br><span style="font-size:0.5rem;">🌷</span>';}
+    grid.appendChild(d);
+  }
+}
+
+// ===== SCROLL ANIMATIONS =====
+function initScrollAnimations(){
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Generic anim-el
+  gsap.utils.toArray('.anim-el').forEach(el=>{
+    gsap.fromTo(el,
+      {opacity:0,y:30},
+      {opacity:1,y:0,duration:1,ease:'power2.out',
+       scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none reverse'}}
+    );
+  });
+
+  // Reddit card
+  gsap.fromTo('#reddit-card',
+    {opacity:0,y:40,scale:0.95},
+    {opacity:1,y:0,scale:1,duration:1.2,ease:'back.out(1.4)',
+     scrollTrigger:{trigger:'#reddit-card',start:'top 80%'}}
+  );
+
+  // Tulip grow
+  gsap.fromTo('#tulip-grow-1',
+    {opacity:0,scale:0,y:20},
+    {opacity:1,scale:1.2,y:0,duration:1,ease:'elastic.out(1,0.5)',
+     scrollTrigger:{trigger:'#tulip-grow-1',start:'top 85%'}}
+  );
+
+  // Heart reveal
+  gsap.fromTo('#heart-reveal',
+    {opacity:0,scale:0},
+    {opacity:1,scale:1,duration:1.2,ease:'elastic.out(1,0.4)',
+     scrollTrigger:{trigger:'#heart-reveal',start:'top 80%'}}
+  );
+
+  // Tulip rows
+  gsap.utils.toArray('.tulip-row').forEach(row=>{
+    gsap.fromTo(row,
+      {opacity:0,y:20},
+      {opacity:1,y:0,duration:0.8,ease:'power2.out',
+       scrollTrigger:{trigger:row,start:'top 85%'}}
+    );
+  });
+
+  // Calendar
+  gsap.fromTo('#calendar-grid',
+    {opacity:0,scale:0.8},
+    {opacity:1,scale:1,duration:1,ease:'back.out(1.2)',
+     scrollTrigger:{trigger:'#calendar-grid',start:'top 80%'}}
+  );
+
+  // Date big
+  gsap.utils.toArray('.date-big').forEach(el=>{
+    gsap.fromTo(el,
+      {opacity:0,scale:0.6},
+      {opacity:1,scale:1,duration:1.2,ease:'elastic.out(1,0.5)',
+       scrollTrigger:{trigger:el,start:'top 80%'}}
+    );
+  });
+
+  // Cracked text
+  gsap.fromTo('.cracked-text',
+    {opacity:0,y:20},
+    {opacity:1,y:0,duration:1,ease:'power2.out',
+     scrollTrigger:{trigger:'.cracked-text',start:'top 80%'}}
+  );
+
+  // RCB badge
+  gsap.fromTo('.rcb-badge',
+    {opacity:0,scale:0.8},
+    {opacity:1,scale:1,duration:0.8,ease:'back.out(1.4)',
+     scrollTrigger:{trigger:'.rcb-badge',start:'top 85%'}}
+  );
+
+  // Messages stagger
+  ['#msg1','#msg2','#msg3','#msg4'].forEach((id,i)=>{
+    gsap.fromTo(id,
+      {opacity:0,x:id.includes('reply')?20:-20},
+      {opacity:1,x:0,duration:0.8,delay:i*0.25,ease:'power2.out',
+       scrollTrigger:{trigger:id,start:'top 85%'}}
+    );
+  });
+
+  // Chocolate cards stagger
+  gsap.utils.toArray('.choco-card').forEach((card,i)=>{
+    gsap.fromTo(card,
+      {opacity:0,y:40,rotate:i%2===0?-5:5},
+      {opacity:1,y:0,rotate:0,duration:0.9,delay:i*0.15,ease:'back.out(1.2)',
+       scrollTrigger:{trigger:card,start:'top 85%'}}
+    );
+  });
+
+  // Bouquet emoji
+  gsap.fromTo('#bouquet-emoji',
+    {opacity:0,scale:0.3},
+    {opacity:1,scale:1,duration:1.5,ease:'elastic.out(1,0.4)',
+     scrollTrigger:{trigger:'#bouquet-emoji',start:'top 80%'}}
+  );
+
+  // Ending texts
+  gsap.utils.toArray('.ending-text').forEach((el,i)=>{
+    gsap.fromTo(el,
+      {opacity:0,y:30},
+      {opacity:1,y:0,duration:1,delay:i*0.4,ease:'power2.out',
+       scrollTrigger:{trigger:el,start:'top 85%'}}
+    );
+  });
+
+  // Ending heart
+  gsap.fromTo('.ending-heart',
+    {opacity:0,scale:0},
+    {opacity:1,scale:1,duration:1.2,ease:'elastic.out(1,0.4)',
+     scrollTrigger:{trigger:'.ending-heart',start:'top 85%'}}
+  );
+
+  // Forgive note
+  gsap.fromTo('.forgive-note',
+    {opacity:0,y:30},
+    {opacity:1,y:0,duration:1.2,ease:'power2.out',
+     scrollTrigger:{trigger:'.forgive-note',start:'top 85%'}}
+  );
+
+  // Chapter endings
+  gsap.utils.toArray('.chapter-ending').forEach(el=>{
+    gsap.fromTo(el,
+      {opacity:0,x:-30},
+      {opacity:1,x:0,duration:1,ease:'power2.out',
+       scrollTrigger:{trigger:el,start:'top 85%'}}
+    );
+  });
+
+  // Three.js garden
+  initThreeGarden();
+}
+
+// ===== THREE.JS TULIP GARDEN =====
+function initThreeGarden(){
+  const canvas=document.getElementById('three-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(canvas.parentElement.offsetWidth,canvas.parentElement.offsetHeight);
+  renderer.setClearColor(0x000000,0);
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,canvas.parentElement.offsetWidth/canvas.parentElement.offsetHeight,0.1,100);
+  camera.position.set(0,3,10);
+  camera.lookAt(0,1,0);
+
+  // Lighting
+  const amb=new THREE.AmbientLight(0xffe0f0,0.8);
+  scene.add(amb);
+  const dir=new THREE.DirectionalLight(0xff80ab,1.5);
+  dir.position.set(5,10,5);
+  scene.add(dir);
+  const point=new THREE.PointLight(0xf9a8c9,2,20);
+  point.position.set(0,5,0);
+  scene.add(point);
+
+  // Create tulip function
+  function makeTulip(x,z,scale=1){
+    const g=new THREE.Group();
+
+    // Stem
+    const stemGeo=new THREE.CylinderGeometry(0.03,0.04,1.5*scale,8);
+    const stemMat=new THREE.MeshPhongMaterial({color:0x4a8c40});
+    const stem=new THREE.Mesh(stemGeo,stemMat);
+    stem.position.y=0.75*scale;
+    g.add(stem);
+
+    // Petals
+    const petalColors=[0xf9a8c9,0xe8678a,0xfce4ec,0xf48fb1];
+    const col=petalColors[Math.floor(Math.random()*petalColors.length)];
+    const petalMat=new THREE.MeshPhongMaterial({color:col,side:THREE.DoubleSide,shininess:60});
+
+    for(let i=0;i<5;i++){
+      const petalGeo=new THREE.SphereGeometry(0.18*scale,8,8,0,Math.PI);
+      const petal=new THREE.Mesh(petalGeo,petalMat);
+      petal.position.y=1.55*scale;
+      petal.rotation.z=0.6;
+      petal.rotation.y=(i/5)*Math.PI*2;
+      g.add(petal);
+    }
+
+    // Leaf
+    const leafGeo=new THREE.SphereGeometry(0.12*scale,6,6,0,Math.PI);
+    const leafMat=new THREE.MeshPhongMaterial({color:0x5d8a52,side:THREE.DoubleSide});
+    const leaf=new THREE.Mesh(leafGeo,leafMat);
+    leaf.position.set(0.15*scale,0.8*scale,0);
+    leaf.rotation.z=-0.8;
+    g.add(leaf);
+
+    g.position.set(x,0,z);
+    g.userData.sway=Math.random()*Math.PI*2;
+    g.userData.swaySpeed=0.3+Math.random()*0.4;
+    g.userData.swayAmt=0.02+Math.random()*0.03;
+    scene.add(g);
+    return g;
+  }
+
+  const tulips=[];
+  const rows=5,cols=8;
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const x=(c-cols/2)*1.4+(Math.random()-0.5)*0.4;
+      const z=(r-rows/2)*1.6+(Math.random()-0.5)*0.4;
+      const sc=0.7+Math.random()*0.5;
+      tulips.push(makeTulip(x,z,sc));
+    }
+  }
+
+  // Floating sparkles
+  const sparkleGeo=new THREE.BufferGeometry();
+  const sparkleCount=200;
+  const sparklePts=new Float32Array(sparkleCount*3);
+  for(let i=0;i<sparkleCount;i++){
+    sparklePts[i*3]=(Math.random()-0.5)*20;
+    sparklePts[i*3+1]=Math.random()*8;
+    sparklePts[i*3+2]=(Math.random()-0.5)*10;
+  }
+  sparkleGeo.setAttribute('position',new THREE.BufferAttribute(sparklePts,3));
+  const sparkleMat=new THREE.PointsMaterial({color:0xfce4ec,size:0.08,transparent:true,opacity:0.7});
+  const sparkles=new THREE.Points(sparkleGeo,sparkleMat);
+  scene.add(sparkles);
+
+  let time=0;
+  function animate3D(){
+    requestAnimationFrame(animate3D);
+    time+=0.01;
+    tulips.forEach(t=>{
+      t.rotation.z=Math.sin(time*t.userData.swaySpeed+t.userData.sway)*t.userData.swayAmt;
+    });
+    camera.position.x=Math.sin(time*0.1)*2;
+    camera.position.y=3+Math.sin(time*0.15)*0.5;
+    camera.lookAt(0,1,0);
+    sparkles.rotation.y=time*0.05;
+    renderer.render(scene,camera);
+  }
+  animate3D();
+
+  window.addEventListener('resize',()=>{
+    const w=canvas.parentElement.offsetWidth,h=canvas.parentElement.offsetHeight;
+    renderer.setSize(w,h);
+    camera.aspect=w/h;camera.updateProjectionMatrix();
+  });
+}
+
+// ===== TOUCH SUPPORT =====
+document.addEventListener('touchmove',e=>{
+  const t=e.touches[0];
+  mx=t.clientX;my=t.clientY;
+},{passive:true});
+</script>
+</body>
+</html>
